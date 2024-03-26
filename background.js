@@ -4,9 +4,9 @@ let loggingIntervalId = null;
 
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
   if (message.action === "toggleLogging") {
-    const { isEnabled, tabId } = message;
+    const { isEnabled } = message;
     if (isEnabled) {
-      startCricket(tabId);
+      startCricket();
     } else {
       stopCricket();
     }
