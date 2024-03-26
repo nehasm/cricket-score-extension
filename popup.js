@@ -1,4 +1,4 @@
-let isEnabled = window.localStorage.getItem('livecricket') || false;
+let isEnabled = false;
 
 document.addEventListener('DOMContentLoaded', function() {
   const toggleLoggingButton = document.getElementById('btnGetData')
