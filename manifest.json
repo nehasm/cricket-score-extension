@@ -1,0 +1,14 @@
+{
+    "name": "Cricket score extension",
+    "version": "1.0.0",
+    "description": "Extension to get the live match scores",
+    "manifest_version": 3,
+    "author": "Neha Malvia",
+    "permissions": [
+        "activeTab"
+    ],
+    "action":{
+        "default_popup": "index.html",
+        "default_title": "Latest cricket score"
+    }
+}
