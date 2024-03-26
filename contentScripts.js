@@ -1,5 +1,5 @@
-// contentScript.js
-
 console.log("Content script loaded");
 
-// Add your content script logic here
+chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+  console.log("Received message from popup.js:", message);
+});

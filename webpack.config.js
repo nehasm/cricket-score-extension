@@ -3,7 +3,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: './popup.js',
-  mode: 'production',
+  mode: 'development',
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
@@ -15,6 +15,7 @@ module.exports = {
         { from: 'popup.html', to: path.resolve(__dirname, 'dist') },
         { from: 'manifest.json', to: path.resolve(__dirname, 'dist') },
         { from: 'contentScripts.js', to: path.resolve(__dirname, 'dist') },
+        { from: 'background.js', to: path.resolve(__dirname, 'dist') },
       ],
     }),
   ],
