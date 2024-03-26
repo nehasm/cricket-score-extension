@@ -6,8 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
   toggleLoggingButton.addEventListener('click', function() {
     isEnabled = !isEnabled;
     chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-      const activeTabId = tabs[0].id;
-      chrome.runtime.sendMessage({ action: "toggleLogging", isEnabled: isEnabled, tabId: activeTabId });
+      chrome.runtime.sendMessage({ action: "toggleLogging", isEnabled: isEnabled });
     });
 
     if (isEnabled) {
