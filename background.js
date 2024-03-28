@@ -17,13 +17,15 @@ function startCricket() {
   stopCricket();
 
   loggingIntervalId = setInterval(function () {
-    chrome.tabs.query({ active: true }, function (tabs) {
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       if (tabs.length > 0) {
+        // Assuming you want to send the message to the active tab
+        const tabId = tabs[0].id;
         chrome.tabs.sendMessage(
-          tabs[0].id,
-          new Date(),
+          tabId,
+          { action: "polling" },
           function (response) {
-            // any callback from content script comes here
+            // Handle the response if needed
           }
         );
       }

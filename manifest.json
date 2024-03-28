@@ -2,12 +2,13 @@
   "manifest_version": 3,
   "name": "My Axios Extension",
   "version": "1.0",
-  "permissions": ["activeTab", "storage"],
+  "permissions": ["activeTab", "storage","tabs"],
   "action": {
     "default_popup": "popup.html"
   },
   "content_scripts": [
     {
+      "all_frames": true,
       "matches": ["<all_urls>"],
       "js": ["contentScripts.js"]
     }
