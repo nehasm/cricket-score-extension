@@ -24,9 +24,7 @@ function startCricket() {
         chrome.tabs.sendMessage(
           tabId,
           { action: "polling" },
-          function (response) {
-            // Handle the response if needed
-          }
+          function (response) {}
         );
       }
     });
