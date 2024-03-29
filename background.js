@@ -17,17 +17,51 @@ function startCricket() {
   stopCricket();
 
   loggingIntervalId = setInterval(function () {
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-      if (tabs.length > 0) {
-        // Assuming you want to send the message to the active tab
-        const tabId = tabs[0].id;
-        chrome.tabs.sendMessage(
-          tabId,
-          { action: "polling" },
-          function (response) {}
+    // Your API fetch logic
+    fetch(
+      "https://hs-consumer-api.espncricinfo.com/v1/pages/matches/current?lang=en&latest=true"
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        const iplMatches = data.matches.filter(
+          (match) => match.series.slug === "indian-premier-league-2024"
         );
-      }
-    });
+        let allIplMatches = [];
+        for (let match of iplMatches) {
+          let currentTeamData = {
+            teamData: [],
+            statusText: match.statusText,
+          };
+          for (let team of match.teams) {
+            currentTeamData.teamData.push({
+              teamName: team.team.abbreviation,
+              score: team.score,
+              scoreInfo: team.scoreInfo,
+            });
+          }
+          allIplMatches.push(currentTeamData);
+        }
+
+        // Send the fetched data to the content script
+        chrome.tabs.query(
+          { active: true, currentWindow: true },
+          function (tabs) {
+            if (tabs.length > 0) {
+              const tabId = tabs[0].id;
+              chrome.tabs.sendMessage(
+                tabId,
+                { action: "polling", data: allIplMatches }, // Include fetched data in the message
+                function (response) {
+                  // Handle the response from the content script if needed
+                }
+              );
+            }
+          }
+        );
+      })
+      .catch((error) => {
+        console.error("Error fetching API:", error);
+      });
   }, 5000);
 }
 

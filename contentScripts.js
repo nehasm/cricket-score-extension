@@ -15,28 +15,41 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
       newElement.style.background = "#fff";
       newElement.style.zIndex = "9999";
       newElement.style.padding = "8px";
+      newElement.style.width = "300px";
+      newElement.style.fontSize = "14px";
+      newElement.style.fontFamily = "sans-serif";
+      newElement.style.color = "#000";
+      newElement.style.lineHeight = "20px";
 
       // Step 3: Get a reference to the <body> element
       var bodyElement = document.body;
-
-      // Step 4: Get the current timestamp
-      var currentTimeStamp = new Date().toLocaleString(); // Get the current time in string format
-
-      // Step 5: Add text content with the current timestamp to the new <div> element
-      newElement.textContent = "Current timestamp: " + currentTimeStamp;
-
-      // Step 6: Append the new element as the first child of the <body> element
       if (bodyElement.firstChild) {
-        // If <body> already has child elements, insert before the first child
         bodyElement.insertBefore(newElement, bodyElement.firstChild);
       } else {
-        // If <body> has no child elements, append as the first child
         bodyElement.appendChild(newElement);
       }
     } else {
-      // Step 7: If the div already exists, update its content with the new timestamp
-      existingDiv.textContent =
-        "Current timestamp: " + new Date().toLocaleString();
+      // Step 4: Add HTML blocks based on the array
+      var htmlBlocks = "";
+      message.data.forEach(function (match) {
+        htmlBlocks += '<div id="ipl-match" style="padding: 4px;">';
+        htmlBlocks +=
+          '<div style="display: flex; justify-content: space-between;">';
+        match.teamData.forEach(function (teamInfo) {
+          htmlBlocks += "<div>" + teamInfo.teamName;
+          if (teamInfo.score) {
+            htmlBlocks += " <span>( " + teamInfo.score + " )</span>";
+          }
+          htmlBlocks += "</div>";
+        });
+        htmlBlocks += "</div>";
+        htmlBlocks +=
+          '<div style="color: #989596; font-style: italic">' +
+          match.statusText +
+          "</div>";
+        htmlBlocks += "</div>";
+      });
+      existingDiv.innerHTML = htmlBlocks;
     }
   }
 });
