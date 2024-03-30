@@ -69,20 +69,18 @@ function stopCricket() {
   if (loggingIntervalId) {
     clearInterval(loggingIntervalId);
     loggingIntervalId = null;
-    chrome.tabs.query(
-      { active: true, currentWindow: true },
-      function (tabs) {
-        if (tabs.length > 0) {
-          const tabId = tabs[0].id;
-          chrome.tabs.sendMessage(
-            tabId,
-            { action: "stopDisplayScore" }, 
-            function (response) {
-              // Handle the response from the content script if needed
-            }
-          );
-        }
-      }
-    );
+
+    chrome.tabs.query({}, function(tabs) {
+      tabs.forEach(function(tab) {
+        chrome.tabs.sendMessage(
+          tab.id,
+          { action: "stopDisplayScore" },
+          function(response) {
+            // Handle the response from the content script if needed
+          }
+        );
+      });
+    });
   }
 }
+
