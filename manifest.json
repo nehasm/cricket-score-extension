@@ -10,7 +10,8 @@
     {
       "all_frames": true,
       "matches": ["<all_urls>"],
-      "js": ["contentScripts.js"]
+      "js": ["contentScripts.js"],
+      "css": ["live-score.css"]
     }
   ],
   "background": {
@@ -19,6 +20,10 @@
   "web_accessible_resources": [
     {
       "resources": ["dist/bundle.js"],
+      "matches": ["<all_urls>"]
+    },
+    {
+      "resources": ["live-score.css"],
       "matches": ["<all_urls>"]
     }
   ]
