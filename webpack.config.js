@@ -16,6 +16,7 @@ module.exports = {
         { from: 'manifest.json', to: path.resolve(__dirname, 'dist') },
         { from: 'contentScripts.js', to: path.resolve(__dirname, 'dist') },
         { from: 'background.js', to: path.resolve(__dirname, 'dist') },
+        { from: 'live-score.css', to: path.resolve(__dirname, 'dist') },
       ],
     }),
   ],

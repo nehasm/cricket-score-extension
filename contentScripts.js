@@ -1,5 +1,23 @@
 console.log("Content script loaded");
 
+const head = document.head;
+const styleTag = document.createElement("link");
+styleTag.href = chrome.runtime.getURL("live-score.css");
+styleTag.rel = "stylesheet";
+styleTag.type = "text/css";
+
+head.appendChild(styleTag);
+
+const init = async () => {
+  let { isEnabled } = await chrome.storage.sync.get("isEnabled");
+  chrome.runtime.sendMessage({
+    action: "init",
+    isEnabled: isEnabled,
+  });
+};
+
+init();
+
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
   if (message.action === "polling") {
     // Step 1: Check if the div already exists
@@ -9,20 +27,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
       // Step 2: Create the new element if it doesn't exist
       const newElement = document.createElement("div");
       newElement.id = "liveCricketDataUpdate";
-      newElement.style.position = "absolute";
-      newElement.style.top = "6px";
-      newElement.style.right = "6px";
-      newElement.style.background = "#fff";
-      newElement.style.zIndex = "9999";
-      newElement.style.padding = "8px";
-      newElement.style.width = "300px";
-      newElement.style.fontSize = "14px";
-      newElement.style.fontFamily = "sans-serif";
-      newElement.style.color = "#000";
-      newElement.style.lineHeight = "20px";
-      newElement.style.boxShadow = "0px 3px 8px rgba(0, 0, 0, 0.24)";
-      newElement.style.borderRadius = "2px";
-      newElement.style.letterSpacing = "0.5px";
+      newElement.innerHTML = "Getting scores for you";
 
       // Step 3: Get a reference to the <body> element
       var bodyElement = document.body;
@@ -34,35 +39,36 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     } else {
       // Step 4: Add HTML blocks based on the array
       var htmlBlocks = "";
-      message.data.forEach(function (match, index) {
-        const isLastMatch = index === message.data.length - 1;
-        const borderStyle = isLastMatch
-          ? ""
-          : "border-bottom: 1px solid #eeeeee;";
-        htmlBlocks +=
-          '<div id="ipl-match" style="padding: 4px; ' + borderStyle + '">';
-        htmlBlocks +=
-          '<div style="display: flex; justify-content: space-between;">';
-        match.teamData.forEach(function (teamInfo) {
-          htmlBlocks += "<div>" + teamInfo.teamName;
-          if (teamInfo.score) {
-            htmlBlocks += " <span>(" + teamInfo.score + ")</span>";
-          }
+      const matches = message.data;
+
+      if (matches.length === 0) {
+        htmlBlocks = "No running matches";
+      } else {
+        matches.forEach(function (match, index) {
+          htmlBlocks += '<div class="ipl-match">';
+          htmlBlocks +=
+            '<div style="display: flex; justify-content: space-between;">';
+          match.teamData.forEach(function (teamInfo) {
+            htmlBlocks += "<div>" + teamInfo.teamName;
+            if (teamInfo.score) {
+              htmlBlocks += " <span>(" + teamInfo.score + ")</span>";
+            }
+            htmlBlocks += "</div>";
+          });
+          htmlBlocks += "</div>";
+          htmlBlocks +=
+            '<div style="color: #989596; font-style: italic">' +
+            match.statusText +
+            "</div>";
           htmlBlocks += "</div>";
         });
-        htmlBlocks += "</div>";
-        htmlBlocks +=
-          '<div style="color: #989596; font-style: italic">' +
-          match.statusText +
-          "</div>";
-        htmlBlocks += "</div>";
-      });
+      }
       existingDiv.innerHTML = htmlBlocks;
     }
-  } else if(message.action === "stopDisplayScore") {
+  } else if (message.action === "stopDisplayScore") {
     const existingDiv = document.getElementById("liveCricketDataUpdate");
     if (existingDiv) {
-        existingDiv.parentNode.removeChild(existingDiv);
+      existingDiv.parentNode.removeChild(existingDiv);
     }
   }
 });
