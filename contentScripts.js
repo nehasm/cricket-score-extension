@@ -1,4 +1,25 @@
 console.log("Content script loaded");
+function dragBox(e) {
+  e.preventDefault();
+  pos3 = e.clientX;
+  pos4 = e.clientY;
+  document.onmouseup = closeDragElement;
+  document.onmousemove = elementDrag;
+}
+
+function elementDrag(e) {
+  e = e || window.event;
+  e.preventDefault();
+  console.log(e)
+  document.getElementById('liveCricketDataUpdate').style.top = e.clientY + 'px';
+  document.getElementById('liveCricketDataUpdate').style.left = e.screenX + 'px';
+}
+
+function closeDragElement() {
+  document.onmouseup = null;
+  document.onmousemove = null;
+}
+
 
 const head = document.head;
 const styleTag = document.createElement("link");
@@ -21,7 +42,7 @@ init();
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
   if (message.action === "polling") {
     // Step 1: Check if the div already exists
-    const existingDiv = document.getElementById("liveCricketDataUpdate");
+    let existingDiv = document.getElementById("liveCricketDataUpdate");
 
     if (!existingDiv) {
       // Step 2: Create the new element if it doesn't exist
@@ -36,7 +57,8 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
       } else {
         bodyElement.appendChild(newElement);
       }
-    } else {
+    } 
+    existingDiv = document.getElementById("liveCricketDataUpdate");
       // Step 4: Add HTML blocks based on the array
       var htmlBlocks = "";
       const matches = message.data;
@@ -62,9 +84,10 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
             "</div>";
           htmlBlocks += "</div>";
         });
+        htmlBlocks += "<div id='dropper'></div>";
       }
       existingDiv.innerHTML = htmlBlocks;
-    }
+      document.getElementById('dropper').onmousedown = dragBox
   } else if (message.action === "stopDisplayScore") {
     const existingDiv = document.getElementById("liveCricketDataUpdate");
     if (existingDiv) {
