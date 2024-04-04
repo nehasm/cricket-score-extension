@@ -2,14 +2,16 @@
   "manifest_version": 3,
   "name": "My Axios Extension",
   "version": "1.0",
-  "permissions": ["activeTab", "storage"],
+  "permissions": ["activeTab", "storage","tabs"],
   "action": {
     "default_popup": "popup.html"
   },
   "content_scripts": [
     {
+      "all_frames": true,
       "matches": ["<all_urls>"],
-      "js": ["contentScripts.js"]
+      "js": ["contentScripts.js"],
+      "css": ["live-score.css"]
     }
   ],
   "background": {
@@ -18,6 +20,10 @@
   "web_accessible_resources": [
     {
       "resources": ["dist/bundle.js"],
+      "matches": ["<all_urls>"]
+    },
+    {
+      "resources": ["live-score.css"],
       "matches": ["<all_urls>"]
     }
   ]
