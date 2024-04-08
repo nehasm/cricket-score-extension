@@ -9,7 +9,7 @@ function getLatestScoresAndRender() {
     .then((data) => {
       const iplMatches = data.matches.filter(
         (match) => match.series.slug === "indian-premier-league-2024"
-        // && match.stage === "RUNNING"
+        && match.stage === "RUNNING"
       );
       let allIplMatches = [];
       for (let match of iplMatches) {
