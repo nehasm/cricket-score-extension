@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Cricket Now: Live IPL Scores",
-  "description": "Stay updated with live IPL scores! Get real-time match updates, scores, and stats for your favorite teams in every game. Never miss a moment!",
+  "description": "Stay updated with live IPL scores! Get real-time match updates, scores, and stats for your favorite teams in every game.",
   "version": "1.0.0",
   "permissions": ["activeTab", "storage", "tabs"],
   "author": [
