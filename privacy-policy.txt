@@ -1,0 +1,25 @@
+privacy policy
+
+Our Chrome extension prioritizes user privacy and transparency. We do not collect any personal data from our users, except for the sole purpose of determining whether the extension is enabled or disabled. This information is stored locally on the user's device and is not transmitted to any external servers.
+
+Data Collection:
+Extension Status: We collect information regarding whether the extension is enabled or disabled. This data is stored locally in the user's browser storage (local storage) and is solely used to provide the functionality of the extension.
+
+Data Usage:
+Extension Functionality: The information about the extension's status (enabled or disabled) is utilized solely for the purpose of enabling or disabling the functionality of the extension within the user's browser environment.
+
+Data Sharing:
+No External Sharing: We do not share any user data collected by the extension with third parties, external services, or other entities.
+
+User Rights:
+Control: Users have full control over the extension's functionality, including the ability to enable or disable it at any time.
+Access and Deletion: Users can access and delete the data stored by the extension directly from their browser settings, as it is stored locally.
+
+Changes to Privacy Policy:
+Any changes to this privacy policy will be communicated through updates to the extension and/or the extension's listing on the Chrome Web Store.
+
+Contact Information:
+
+If you have any questions or concerns regarding our privacy practices or this privacy policy, please contact us at sanketmunot95@gmail.com / neha.malvia@somaiya.edu.
+
+By using our Chrome extension, you agree to the terms outlined in this privacy policy. Thank you for choosing our extension and for your trust in our commitment to privacy protection.
