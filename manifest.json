@@ -1,13 +1,21 @@
 {
   "manifest_version": 3,
-  "name": "My Axios Extension",
+  "name": "Cricket Now: Live IPL Scores",
+  "description": "Stay updated with live IPL scores! Get real-time match updates, scores, and stats for your favorite teams in every game. Never miss a moment!",
   "version": "1.0",
-  "permissions": ["activeTab", "storage","tabs"],
+  "permissions": ["activeTab", "storage", "tabs"],
+  "author": [
+    {
+      "name": "Sanket Munot",
+      "email": "sanketmunot95@gmail.com"
+    }
+  ],
   "action": {
     "default_popup": "index.html"
   },
   "icons": {
-          "128": "./icon128.png" },
+    "128": "./icon128.png"
+  },
   "content_scripts": [
     {
       "all_frames": true,

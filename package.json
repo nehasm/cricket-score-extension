@@ -1,14 +1,25 @@
 {
-  "name": "cricket-score-extension",
+  "name": "live-ipl-scores",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "webpack --watch"
+    "watch": "webpack --watch",
+    "build": "webpack"
   },
   "keywords": [],
-  "author": "",
+  "contributors": [
+    {
+      "name": "Neha Malvia",
+      "email": "malvianeha2016@gmail.com",
+      "url": "https://www.linkedin.com/in/neha-malvia-ab763318a/"
+    },
+    {
+      "name": "Sanket Monut",
+      "email": "sanketmunot95@gmail.com"
+    }
+  ],
   "license": "ISC",
   "dependencies": {
     "react": "^18.2.0",
