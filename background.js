@@ -3,7 +3,7 @@
 function getLatestScoresAndRender() {
   // Your API fetch logic
   fetch(
-    "Add your API URL here"
+    "https://hs-consumer-api.espncricinfo.com/v1/pages/matches/current?lang=en&latest=true"
   )
     .then((response) => response.json())
     .then((data) => {
